@@ -20,10 +20,12 @@ const assetPath = path.join(__dirname, "public");
 
 app.use(express.static(assetPath));
 
+app.set('views', path.join(__dirname, "views"));
+app.set('view engine', "ejs");
+
 app.get("/", (req, res) => 
 {
-    console.log("/");
-    res.send();
+    res.render("index", {title : "Mini Message Board", messages: messages});
 });
 
 app.get("/new", (req, res) => 
