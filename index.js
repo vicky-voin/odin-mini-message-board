@@ -2,12 +2,14 @@ const messages = [
     {
         text: "Hi there!",
         user: "Amando",
-        added: new Date()
+        added: new Date(),
+        id: 1
     },
     {
         text: "Hello world!",
         user: "Charles",
-        added: new Date()
+        added: new Date(),
+        id: 2
     }
 ]
 
@@ -34,12 +36,18 @@ app.get("/new", (req, res) =>
     res.render("form");
 });
 
+app.get("/message/:id", (req, res) => 
+{
+    res.render("details", {message: messages.find(x => x.id == req.params.id)});
+})
+
 app.post("/new", (req, res) => 
 {
     messages.push({
         text: req.body.message,
         user: req.body.user,
-        added: new Date()
+        added: new Date(),
+        id: messages.length+1
     });
 
     res.redirect("/");
