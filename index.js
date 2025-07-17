@@ -1,20 +1,6 @@
-const messages = [
-    {
-        text: "Hi there!",
-        user: "Amando",
-        added: new Date(),
-        id: 1
-    },
-    {
-        text: "Hello world!",
-        user: "Charles",
-        added: new Date(),
-        id: 2
-    }
-]
-
 const express = require("express");
 const path = require("node:path");
+const messageRouter = require("./routes/messageRouter")
 
 const app = express();
 
@@ -26,32 +12,7 @@ app.use(express.urlencoded({extended: true}));
 app.set('views', path.join(__dirname, "views"));
 app.set('view engine', "ejs");
 
-app.get("/", (req, res) => 
-{
-    res.render("index", {title : "Mini Message Board", messages: messages});
-});
-
-app.get("/new", (req, res) => 
-{
-    res.render("form");
-});
-
-app.get("/message/:id", (req, res) => 
-{
-    res.render("details", {message: messages.find(x => x.id == req.params.id)});
-})
-
-app.post("/new", (req, res) => 
-{
-    messages.push({
-        text: req.body.message,
-        user: req.body.user,
-        added: new Date(),
-        id: messages.length+1
-    });
-
-    res.redirect("/");
-});
+app.use("/", messageRouter);
 
 const PORT = 8000;
 
