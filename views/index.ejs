@@ -9,11 +9,11 @@
     <h1><%= title %></h1>
     <% messages.map((message) => { %>
         <%- include("message", {message: message}); %>
-        <a href="http://localhost:8000/message/<%=message.id %>">details</a>
+        <a href="/message/<%=message.id %>">details</a>
         <br>
     <% }) %>
     <br>
     <br>
-    <a href="http://localhost:8000/new">Send a message</a>
+    <a href="/new">Send a message</a>
 </body>
 </html>
